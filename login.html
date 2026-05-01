@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - YIC Course Feedback System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="brand">
+        <h1>YIC Course Feedback System</h1>
+        <p>Browse courses and share your feedback</p>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="login.html" class="active">Login</a>
+        <a href="register.html" class="register-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="container form-page">
+      <section class="form-card">
+        <h2>Login</h2>
+        <p>Login as a student or admin user.</p>
+
+        <form id="loginForm" class="form-layout">
+          <div class="form-group">
+            <label for="loginUsername">Username</label>
+           <input type="text" id="loginUsername" name="username" placeholder="Enter username" required minlength="5">
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" placeholder="Enter password" required minlength="8">
+          </div>
+
+          <div class="form-group">
+            <label for="loginRole">Role</label>
+            <select id="loginRole" name="role" required>
+              <option value="">Select role</option>
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <p id="loginMessage" class="form-message"></p>
+
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+        <p class="form-link">
+          Don't have an account? <a href="register.html">Register</a>
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>CS381 Project | YIC Course Feedback System</p>
+    </div>
+  </footer>
+
+  <script>
+  const loginForm = document.querySelector('#loginForm');
+
+  loginForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const username = document.querySelector('#loginUsername').value.trim();
+    const password = document.querySelector('#loginPassword').value.trim();
+    const role = document.querySelector('#loginRole').value;
+    const message = document.querySelector('#loginMessage');
+
+    message.style.color = '#dc2626';
+
+    if (username === '' || password === '' || role === '') {
+      message.textContent = 'Please fill in all fields.';
+      return;
+    }
+
+    if (role === 'admin' && username === 'admin' && password === '12345678') {
+      localStorage.setItem('currentUser', 'admin');
+      window.location.href = 'admin-dashboard.html';
+      return;
+    }
+
+    if (role === 'student') {
+      localStorage.setItem('currentUser', 'student');
+      window.location.href = 'index.html';
+      return;
+    }
+
+    message.textContent = 'Invalid login information.';
+  });
+</script>
+</body>
+</html>
